@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于小国 - 个人官网</title>
+    <style>
+        /* 专属About页面样式 */
+        .about-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+        }
+
+        /* 个人简介区 */
+        .profile-header {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .profile-photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* 时间线样式 */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 45%;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 55%;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-right: 55%;
+        }
+
+        .timeline-date {
+            position: absolute;
+            top: -15px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* 技能进度条 */
+        .skill-bars {
+            margin: 3rem 0;
+        }
+
+        .skill-bar {
+            margin: 1rem 0;
+        }
+
+        .bar-container {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .bar-progress {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 1s ease-in-out;
+        }
+
+        /* 兴趣爱好 */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .interest-item {
+            padding: 1rem;
+        }
+
+        .interest-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: auto;
+                margin: 2rem 0 2rem 30px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 共用导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html" class="active">关于我</a></li>
+            <li><a href="download.html">下载站</a></li>
+        </ul>
+    </nav>
+
+    <div class="about-container">
+        <!-- 个人简介区 -->
+        <header class="profile-header">
+            <div class="bio-text">
+                <h1>小国</h1>
+            </div>
+        </header>
+
+        <!-- 技能进度条 -->
+        <section class="skill-bars">
+            <h2>技术能力</h2>
+
+            <div class="skill-bar">
+                <label>Scrach</label>
+                <div class="bar-container">
+                    <div class="bar-progress" style="width: 84%"></div>
+                </div>
+            </div>
+            <!-- 更多技能条 -->
+            <div class="skill-bar">
+                <label>Mixiy</label>
+                <div class="bar-container">
+                    <div class="bar-progress" style="width: 75%"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 兴趣爱好 -->
+        <section class="interests">
+            <h2>生活志趣</h2>
+            <div class="interests-grid">
+                <div class="interest-item">
+                    <div class="interest-icon">🖥️</div>
+                    <h3>编程</h3>
+                </div>
+                <!-- 更多兴趣项 -->
+        </section>
+    </div>
+
+    <!-- 共用页脚 -->
+    <footer>
+        <p>&copy; 2025 小国 保留所有权利</p>
+    </footer>
+
+    <script>
+        // 进度条动画
+        function animateBars() {
+            document.querySelectorAll('.bar-progress').forEach(bar => {
+                bar.style.width = bar.style.width; // 触发动画
+            });
+        }
+
+        // 时间线动画
+        function animateTimeline() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateX(0)';
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                item.style.opacity = 0;
+                item.style.transform = 'translateX(30px)';
+                item.style.transition = 'all 0.6s ease';
+                observer.observe(item);
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            animateBars();
+            animateTimeline();
+        });
+    </script>
+    <!--导航栏-->
+    <style>
+               /* 基础样式 */
+:root {
+  --primary-color: #2ecc71;
+  --dark-bg: #2c3e50;
+  --light-text: #ecf0f1;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+/* 导航栏样式 */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(44, 62, 80, 0.95);
+  padding: 1rem;
+  z-index: 1000;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+nav a {
+  color: var(--light-text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+  }
+}
+
+/* 技能网格布局 */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.skill-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.skill-item:hover {
+  transform: translateY(-5px);
+}
+
+/* 项目动画 */
+.project-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.project-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+    </style>
+</body>
+</html>

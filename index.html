@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)file:///D:/Windows/onedrive/Desktop/index.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小国 - 个人官网</title>
+    <style>
+        /* 基础样式 */
+:root {
+  --primary-color: #2ecc71;
+  --dark-bg: #2c3e50;
+  --light-text: #ecf0f1;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+/* 导航栏样式 */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(44, 62, 80, 0.95);
+  padding: 1rem;
+  z-index: 1000;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+nav a {
+  color: var(--light-text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+  }
+}
+
+/* 技能网格布局 */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.skill-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.skill-item:hover {
+  transform: translateY(-5px);
+}
+
+/* 项目动画 */
+.project-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.project-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="download.html">下载站</a></li>
+        </ul>
+    <div class="menu-toggle">☰</div></nav>
+
+    <!-- 首页内容 -->
+    <section id="home">
+        <div class="hero">
+            <h1>小国</h1>
+        </div>
+
+        <section class="skills">
+            <h2>核心技能</h2>
+            <div class="skill-grid">
+                <div class="skill-item">
+                    <h3>Web开发</h3>
+                    <p>HTML/CSS/JavaScript</p>
+                </div>
+                <!-- 更多技能项 -->
+                 <div class="skill-grid">
+                  <div class="skill-item">
+                <h3>简单图形编程</h3>
+                <p>scratch/mixiy</p>
+            </div>
+        </div></div></section>
+
+    <!-- ai聊天页面 aichat.html -->
+    <section id="about">
+        <div class="bio-section">
+            <div class="bio-text">
+                <h2>ai聊天(已接入deepseek-R1）</h2>
+            </div>
+                  <a href="aichat.html">进入</a>
+        </div>
+
+    </section>
+    <script>
+      // 导航栏切换
+      document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.createElement('div');
+        menuToggle.className = 'menu-toggle';
+        menuToggle.innerHTML = '☰';
+        document.querySelector('nav').appendChild(menuToggle);
+      
+        menuToggle.addEventListener('click', () => {
+          const navList = document.querySelector('nav ul');
+          navList.style.display = navList.style.display === 'flex' ? 'none' : 'flex';
+        });
+      });
+      
+      // 项目筛选功能
+      document.addEventListener('DOMContentLoaded', () => {
+        const filterButtons = document.querySelectorAll('.filter-buttons button');
+        const projects = document.querySelectorAll('.project-item');
+      
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const category = button.dataset.category;
+            
+            projects.forEach(project => {
+              const show = category === 'all' || 
+                project.dataset.category.includes(category);
+              project.style.display = show ? 'block' : 'none';
+              
+              if(show) {
+                setTimeout(() => project.classList.add('visible'), 50);
+              } else {
+                project.classList.remove('visible');
+              }
+            });
+          });
+        });
+      });
+      
+      // 滚动动画
+      function checkScroll() {
+        const projects = document.querySelectorAll('.project-item');
+        projects.forEach(project => {
+          const elementTop = project.getBoundingClientRect().top;
+          if(elementTop < window.innerHeight * 0.8) {
+            project.classList.add('visible');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', checkScroll);
+      checkScroll(); // 初始检查
+      
+      // 表单验证
+      document.querySelector('form').addEventListener('submit', (e) => {
+        const email = document.querySelector('input[type="email"]');
+        if (!email.validity.valid) {
+          e.preventDefault();
+          email.classList.add('error');
+          alert('请输入有效的邮箱地址');
+        }
+      });
+      
+      // 平滑滚动
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+      </script>
+      
+
+    <!-- 联系方式页面 contact.html -->
+    <section id="contact">
+        <div class="contact-form">
+            <form>
+                <input type="text" placeholder="姓名" required="">
+                <input type="email" placeholder="邮箱" required="">
+                <textarea placeholder="留言"></textarea>
+                <button type="submit">发送</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <address>
+                中国福建省漳州市<br>
+                xggzyx11@outlook.com
+            </address>
+            <div class="social-links">
+                <a href="https://qm.qq.com/q/GpHXnJRJeu"><img src="./index_files/qq.png" alt="QQ"></a>
+                <a href="https://qm.qq.com/q/GpHXnJRJeu">QQ</a>
+                    <!--限制图片大小-->
+                    <style>
+                    img {
+                      max-width: 2%; /* 最大宽度不超过容器 */
+                      height: auto;    /* 高度自适应 */
+                    }
+                  </style>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 小国 保留所有权利</p>
+    </footer>
+
+
+
+</body></html>

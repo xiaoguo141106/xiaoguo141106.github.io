@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源下载</title>
+    <style>
+        /* 下载站专属样式 */
+        .download-container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+        }
+
+        /* 控制栏 */
+        .download-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .search-box {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            min-width: 300px;
+        }
+
+        /* 分类筛选 */
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* 下载列表 */
+        .download-list {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .download-item {
+            background: rgb(255, 255, 255);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgb(0, 0, 0);
+            transition: transform 0.3s ease;
+        }
+
+        .download-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .file-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9em;
+            margin: 0.5rem 0;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .file-type {
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .download-controls {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 共用导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="download.html" class="active">下载站</a></li>
+        </ul>
+    </nav>
+
+    <div class="download-container">
+        <h1>资源宝库</h1>
+        <p class="subtitle">精选工具与系统资源免费下载</p>
+
+        <!-- 控制栏 -->
+        <div class="download-controls">
+            <input type="text" class="search-box" placeholder="搜索资源...">
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">全部</button>
+                <button class="category-btn" data-category="system">系统</button>
+                <button class="category-btn" data-category="software">软件</button>
+                <button class="category-btn" data-category="other">其他</button>
+            </div>
+        </div>
+
+        <!-- 下载列表 -->
+        <div class="download-list">
+            <!-- 项目1 -->
+            <div class="download-item" data-category="system" data-tags="Mac OS">
+                <div class="file-type"></div>
+                <h3>Mac OS</h3>
+                <div class="file-meta">
+                    <span>提取码:maco</span>
+                </div>
+                <p></p>
+                <a href="https://www.123912.com/s/1fEqVv-qjMfv" class="download-btn" download>立即下载</a>
+            </div>
+
+            <!-- 项目2 -->
+            <div class="download-item" data-category="system" data-tags="Windows">
+                <div class="file-type"></div>
+                <h3>Windows</h3>
+                <div class="file-meta">
+                    <span>提取码:0121</span>
+                </div>
+                <p></p>
+                <a href="https://www.123684.com/s/1fEqVv-yjMfv" class="download-btn" download>立即下载</a>
+            </div>
+
+            <!-- 更多下载项... -->
+            <div class="download-item" data-category="system" data-tags="Caixukun Os">
+                <div class="file-type"></div>
+                <h3>Caixukun Os</h3>
+                <div class="file-meta">
+                    <span>提取码:jntm</span>
+                </div>
+                <p></p>
+                <a href="https://www.123684.com/s/1fEqVv-jjMfv" class="download-btn" download>立即下载</a>
+            </div>
+        
+    
+
+    <div class="download-item" data-category="system" data-tags="redsart OS" background: rgb(255, 255, 255);padding: 1.5rem;border-radius: 15px;box-shadow: 0 3px 10px rgb(0, 0, 0);transition: transform 0.3s ease;>
+        <div class="file-type"></div>
+        <h3>红星OS</h3>
+        <div class="file-meta">
+            <span>提取码:9526</span>
+        </div>
+        <p></p>
+        <a href="https://www.123684.com/s/1fEqVv-TTwfv" class="download-btn" download>立即下载</a>
+    </div>
+    <div class="download-item" data-category="software" data-tags="">
+        <div class="file-type"></div>
+        <h3>edge浏览器</h3>
+        <div class="file-meta">
+            <span>适用平台:win 8，8.1，10，11</span>
+            <span>提取码:edge</span>
+            <a href="https://www.123684.com/s/1fEqVv-PHwfv" class="download-btn" download>立即下载</a>
+        </div>
+        <p></p>
+    </div>
+<div class="download-item" data-category="software" data-tags="">
+    <div class="file-type"></div>
+    <h3>谷歌浏览器</h3>
+    <div class="file-meta">
+        <span>适用平台:win 10，11</span>
+        <span>提取码:chro</span>
+        <a href="https://www.123684.com/s/1fEqVv-2Hwfv" class="download-btn" download>立即下载</a>
+    </div>
+    <p></p>
+</div>
+<div class="download-item" data-category="software" data-tags="">
+    <div class="file-type"></div>
+    <h3>potplayer</h3>
+    <div class="file-meta">
+        <span>适用平台:win all</span>
+        <span>提取码:potp</span>
+        <a href="https://www.123684.com/s/1fEqVv-LHwfv" class="download-btn" download>立即下载</a>
+    </div>
+    <p></p>
+</div>
+<div class="download-item" data-category="software" data-tags="">
+    <div class="file-type"></div>
+    <h3>千千静听</h3>
+    <div class="file-meta">
+        <span>适用平台:win all</span>
+        <span>提取码:qqjt</span>
+        <a href="https://www.123684.com/s/1fEqVv-5Hwfv" class="download-btn" download>立即下载</a>
+    </div>
+    <p></p>
+</div>
+    <div class="download-item" data-category="template" data-tags="">
+        <div class="file-type"></div>
+        <h3>敬请期待</h3>
+        <div class="file-meta">
+            <span>开发中</span>
+        </div>
+        <p></p>
+    </div>
+
+  </div>
+</div>
+
+
+    <!-- 共用页脚 -->
+    <footer>
+        <p>&copy; 2025 小国 保留所有权利</p>
+    </footer>
+
+    <script>
+        // 实时搜索功能
+        document.querySelector('.search-box').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.download-item').forEach(item => {
+                const textContent = item.textContent.toLowerCase();
+                item.style.display = textContent.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+
+        // 分类筛选
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 切换激活状态
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.dataset.category;
+                document.querySelectorAll('.download-item').forEach(item => {
+                    const show = category === 'all' || 
+                        item.dataset.category === category;
+                    item.style.display = show ? 'block' : 'none';
+                });
+            });
+        });
+
+        // 下载统计
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const fileName = this.href.split('/').pop();
+                console.log(`下载文件：${fileName}`); // 可替换为实际统计代码
+            });
+        });
+
+        // 随机推荐
+        function highlightRandomItem() {
+            const items = document.querySelectorAll('.download-item');
+            items[Math.floor(Math.random()*items.length)].classList.add('recommended');
+        }
+        highlightRandomItem();
+    </script>
+    <style>
+        /* 基础样式 */
+:root {
+  --primary-color: #2ecc71;
+  --dark-bg: #2c3e50;
+  --light-text: #ecf0f1;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+/* 导航栏样式 */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(44, 62, 80, 0.95);
+  padding: 1rem;
+  z-index: 1000;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+nav a {
+  color: var(--light-text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+  }
+}
+
+/* 技能网格布局 */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.skill-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.skill-item:hover {
+  transform: translateY(-5px);
+}
+
+/* 项目动画 */
+.project-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.project-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+    </style>
+
+    
+</body>
+</html>

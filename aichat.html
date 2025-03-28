@@ -1,0 +1,20 @@
+<style src="aistyle.css"></style>
+<div class="chat-container">
+  <div class="chat-messages" id="chatMessages">
+      <!-- 示例消息 -->
+      <div class="message bot">
+          <div class="bubble">您好！有什么可以帮您？</div>
+      </div>
+  </div>
+  
+  <div class="input-container">
+      <textarea 
+          id="messageInput" 
+          placeholder="输入消息..." 
+          rows="1"
+          onkeydown="handleKeyPress(event)"
+      ></textarea>
+      <button id="sendButton" onclick="sendMessage()">发送</button>
+  </div>
+</div>
+<script src="ai.js"></script>
