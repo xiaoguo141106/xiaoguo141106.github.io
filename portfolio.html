@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小国的作品集</title>
+    <style>
+        /* 作品集专属样式 */
+        .portfolio-container {
+            max-width: 1400px;
+            margin: 80px auto 0;
+            padding: 2rem;
+        }
+
+        /* 分类筛选 */
+        .filter-nav {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* 项目网格 */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            width: 100%;
+            padding: 1.5rem;
+        }
+
+        .project-tags {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .project-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .filter-btn {
+                margin: 0.3rem;
+                padding: 0.6rem 1rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 共用导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="portfolio.html" class="active">作品集</a></li>
+        </ul>
+    </nav>
+
+    <div class="portfolio-container">
+        <h1>小国的创意工坊</h1>
+        
+        <!-- 分类筛选 -->
+        <nav class="filter-nav">
+            <button class="filter-btn active" data-category="all">全部作品</button>
+            <button class="filter-btn" data-category="web">网页设计</button>
+            <button class="filter-btn" data-category="app">移动应用</button>
+            <button class="filter-btn" data-category="design">平面设计</button>
+        </nav>
+
+        <!-- 项目网格 -->
+        <div class="project-grid">
+            <!-- 项目1 -->
+            <article class="project-card" data-category="web">
+                <div class="project-tags">
+                    <span class="project-tag">网页设计</span>
+                    <span class="project-tag">React</span>
+                </div>
+                <img src="projects/web1.jpg" alt="电商平台" class="project-image">
+                <div class="project-info">
+                    <h3>智能电商平台</h3>
+                    <p>基于React的个性化推荐系统...</p>
+                    <button class="view-detail" data-project="1">查看详情</button>
+                </div>
+            </article>
+
+            <!-- 项目2 -->
+            <article class="project-card" data-category="app">
+                <div class="project-tags">
+                    <span class="project-tag">移动应用</span>
+                    <span class="project-tag">Flutter</span>
+                </div>
+                <img src="projects/app1.jpg" alt="健身应用" class="project-image">
+                <div class="project-info">
+                    <h3>智能健身助手</h3>
+                    <p>AI驱动的个性化训练计划...</p>
+                    <button class="view-detail" data-project="2">查看详情</button>
+                </div>
+            </article>
+
+            <!-- 更多项目... -->
+        </div>
+    </div>
+
+    <!-- 项目详情模态框 -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- 共用页脚 -->
+    <footer>
+        <p>&copy; 2025 小国 保留所有权利</p>
+    </footer>
+
+    <script>
+        // 项目筛选功能
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projects = document.querySelectorAll('.project-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 切换激活状态
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const category = btn.dataset.category;
+                    
+                    // 筛选项目
+                    projects.forEach(project => {
+                        const show = category === 'all' || 
+                            project.dataset.category === category;
+                        project.style.display = show ? 'block' : 'none';
+                    });
+                });
+            });
+        });
+
+        // 模态框控制
+        const modal = document.getElementById('projectModal');
+        const closeBtn = document.querySelector('.close-modal');
+
+        // 打开模态框
+        document.querySelectorAll('.view-detail').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const projectId = btn.dataset.project;
+                // 这里可以添加Ajax请求或动态内容加载
+                document.getElementById('modalContent').innerHTML = `
+                    <h2>项目${projectId}详情</h2>
+                    <div class="project-gallery">
+                        <img src="projects/detail${projectId}.jpg" alt="项目详情">
+                    </div>
+                    <p>这里是项目的详细描述...</p>
+                    <a href="#" class="live-demo">查看在线演示</a>
+                `;
+                modal.style.display = 'block';
+            });
+        });
+
+        // 关闭模态框
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 图片懒加载
+        const lazyLoad = () => {
+            const images = document.querySelectorAll('.project-image');
+            images.forEach(img => {
+                if(img.getBoundingClientRect().top < window.innerHeight + 100) {
+                    img.src = img.dataset.src;
+                }
+            });
+        };
+
+        window.addEventListener('scroll', lazyLoad);
+        lazyLoad(); // 初始加载
+    </script>
+    <style>
+        /* 基础样式 */
+:root {
+  --primary-color: #2ecc71;
+  --dark-bg: #2c3e50;
+  --light-text: #ecf0f1;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+/* 导航栏样式 */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(44, 62, 80, 0.95);
+  padding: 1rem;
+  z-index: 1000;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+nav a {
+  color: var(--light-text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+  }
+}
+
+/* 技能网格布局 */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.skill-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.skill-item:hover {
+  transform: translateY(-5px);
+}
+
+/* 项目动画 */
+.project-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.project-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+    </style>
+</body>
+</html>

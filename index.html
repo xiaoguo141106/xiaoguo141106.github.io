@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0026)file:///D:/HTML/index.html -->
 <html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,6 +53,10 @@ nav a:hover {
   nav ul {
     flex-direction: column;
     display: none;
+  }
+
+  nav ul.visible {
+    display: flex;
   }
   
   .menu-toggle {
@@ -149,7 +152,7 @@ nav a:hover {
       
         menuToggle.addEventListener('click', () => {
           const navList = document.querySelector('nav ul');
-          navList.style.display = navList.style.display === 'flex' ? 'none' : 'flex';
+          navList.classList.toggle('visible');
         });
       });
       
@@ -192,13 +195,15 @@ nav a:hover {
       checkScroll(); // 初始检查
       
       // 表单验证
-      document.querySelector('form').addEventListener('submit', (e) => {
-        const email = document.querySelector('input[type="email"]');
-        if (!email.validity.valid) {
-          e.preventDefault();
-          email.classList.add('error');
-          alert('请输入有效的邮箱地址');
-        }
+      document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+          const email = form.querySelector('input[type="email"]');
+          if (email && !email.validity.valid) {
+            e.preventDefault();
+            email.classList.add('error');
+            alert('请输入有效的邮箱地址');
+          }
+        });
       });
       
       // 平滑滚动
@@ -230,23 +235,27 @@ nav a:hover {
                 xggzyx11@outlook.com
             </address>
             <div class="social-links">
-                <a href="https://qm.qq.com/q/GpHXnJRJeu"><img src="index_files/qq.png" alt="QQ"></a>
-                <a href="https://qm.qq.com/q/GpHXnJRJeu">QQ</a>
+                <a href=""><img src="index_files/qq.png" alt="QQ"></a>
+                <a href="https://qm.qq.com/q/GpHXnJRJeu">QQ（电脑）</a>
+                <a href="https://ti.qq.com/open_qq/index2.html?url=mqqapi://userprofile/friend_profile_card?src_type=web&version=1.0&source=2&uin=2160717774">QQ（手机）</a>
                     <!--限制图片大小-->
                     <style>
-                    img {
-                      max-width: 2%; /* 最大宽度不超过容器 */
-                      height: auto;    /* 高度自适应 */
-                    }
-                  </style>
-            </div>
-        </div>
-    </section>
+                      img {
+  max-width: 100%; /* 最大宽度不超过容器 */
+  height: auto;    /* 高度自适应 */
+}
+img {
+  width: 30x;   /* 固定宽度 */
+  height: 30px;  /* 固定高度 */
+}
+                   </style>
 
 
-    <!-- 页脚 -->
+
+    <!--页脚-->
     <footer>
         <p>© 2025 小国 保留所有权利</p>
+        <p>本站由小国设计和维护</p>
     </footer>
 
 
